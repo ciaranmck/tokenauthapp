@@ -7,17 +7,30 @@ import { Http } from '@angular/http';
 export class ApiService {
 
   messages = [];
+  users = [];
+  path =  'http://localhost:3000';
 
   constructor(private http: Http) { }
 
   getMessages() {
-    this.http.get('http://localhost:3000/posts').subscribe( res => {
+    this.http.get(this.path + '/posts').subscribe( res => {
       this.messages = res.json();
     });
   }
 
-  sendUserRegistration(registerData) {
-    this.http.post('http://localhost:3000/register', registerData).subscribe( res => {
+  postMessage(message) {
+    this.http.post(this.path + '/post', message).subscribe( res => {
     });
   }
+
+  getUsers() {
+    this.http.get(this.path + '/users').subscribe( res => {
+      this.users = res.json();
+    });
+  }
+
+  getProfile(id) {
+    return this.http.get(this.path + '/profile/' + id);
+  }
+
 }
